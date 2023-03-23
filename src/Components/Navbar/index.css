@@ -1,0 +1,31 @@
+.navbar-small {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+
+.logo {
+  font-family: "Courier New", Courier, monospace;
+  font-size: large;
+  font-weight: 600;
+  margin-left: 50px;
+}
+.nav-links {
+  margin-right: 20px;
+}
+.nav-links a {
+  font-size: large;
+}
+.custom-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.custom-button svg {
+  color: white;
+  pointer-events: none;
+}
+.bt2 {
+  background-color: transparent;
+  border: none;
+}

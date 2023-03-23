@@ -1,0 +1,12 @@
+.cascading-right {
+  margin-right: -50px;
+}
+.h {
+  min-height: 100vh;
+}
+@media (max-width: 991.98px) {
+  .cascading-right {
+    margin-right: 0;
+    /* color: rgb(29, 24, 24); */
+  }
+}
