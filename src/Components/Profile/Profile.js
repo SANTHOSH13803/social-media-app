@@ -4,7 +4,7 @@ import { auth } from "../Firebase";
 import Navbar from "../Navbar/Navbar";
 const Profile = () => {
   const user = auth.currentUser;
-  console.log(user);
+  // console.log(user);
 
   return (
     <div>

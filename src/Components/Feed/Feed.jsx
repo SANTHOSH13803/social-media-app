@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../Firebase";
 import "./index.css";
+import { v4 } from "uuid";
 // import Post from "../Post/Post";
 
 const Feed = () => {
@@ -17,7 +18,7 @@ const Feed = () => {
       unSub();
     };
   }, []);
-  console.log(posts);
+  // console.log(posts);
 
   return (
     <div className="feed mt-5">
@@ -26,10 +27,9 @@ const Feed = () => {
           .sort((a, b) => b.data.timestamp - a.data.timestamp)
           .map((p) => {
             const postWithImage = p.data.img !== undefined;
-            console.log(p.data.img === undefined);
             return (
               <div
-                key={p.data.id}
+                key={v4()}
                 className="shadow mt-3 mb-3 w-75 rounded-2 bg-white"
               >
                 <div className="p-3 d-flex justify-content-between align-items-center">
@@ -39,7 +39,7 @@ const Feed = () => {
                   </div>
                   <div className="text">
                     <div>
-                      {new Date(p.data.timestamp.toDate()).toLocaleString()}
+                      {new Date(p.data.timestamp?.toDate()).toLocaleString()}
                     </div>
                   </div>
                 </div>

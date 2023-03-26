@@ -1,13 +1,22 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import { BsPlusCircleDotted } from "react-icons/bs";
 import { AiFillHome } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
 import { GoSignOut } from "react-icons/go";
 
 import "./index.css";
-const Navbar = (props) => {
-  const { onClickSignOut } = props;
+import { signOut } from "firebase/auth";
+import { auth } from "../Firebase";
+
+const Navbar = () => {
+  const navigation = useNavigate();
+  const onClickSignOut = () => {
+    signOut(auth);
+
+    navigation("/login");
+  };
+
   return (
     <>
       <nav className="p-2 d-lg-none navbar-small d-flex align-item-center justify-content-around bg-dark text-white">
@@ -33,7 +42,7 @@ const Navbar = (props) => {
             <Link to="/" className="link">
               Home
             </Link>
-            <Link to="/about" className="link">
+            <Link to="/profile" className="link">
               About
             </Link>
             <button className="bt2 link" onClick={onClickSignOut}>

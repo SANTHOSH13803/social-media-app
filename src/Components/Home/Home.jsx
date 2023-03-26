@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
 import "./index.css";
 import { AuthContext } from "../Auth";
-import { signOut } from "firebase/auth";
-import { auth, storage, db } from "../Firebase";
-import { useNavigate } from "react-router-dom";
+// import { signOut } from "firebase/auth";
+import { storage, db } from "../Firebase";
+// import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
@@ -24,13 +24,8 @@ const Home = () => {
   const [error, setError] = useState(false);
   const [image, setImage] = useState(null);
   const [text, setText] = useState("");
-  const navigation = useNavigate();
   const { currentUser } = useContext(AuthContext);
   // console.log(currentUser.displayName);
-  const onClickSignOut = () => {
-    signOut(auth);
-    navigation("/login");
-  };
 
   const handleOnPost = async (e) => {
     e.preventDefault();
@@ -38,9 +33,9 @@ const Home = () => {
       const storageRef = ref(storage, "Post/" + uuidv4());
       const uploadTask = uploadBytesResumable(storageRef, image);
       uploadTask.on(
-        (snapshot) => {},
         (error) => {
           setError(true);
+          console.log(error);
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
@@ -52,7 +47,6 @@ const Home = () => {
               userPhotoName: currentUser.displayName,
               inputText: text,
             });
-            console.log("entered Handle on Post");
             await updateDoc(doc(db, "userPosts", currentUser.uid), {
               messages: arrayUnion({
                 id: uuidv4(),
@@ -65,6 +59,7 @@ const Home = () => {
               }),
             });
           });
+          console.log("ended");
         }
       );
     } else {
@@ -94,7 +89,7 @@ const Home = () => {
   return (
     <div className="app__home">
       <div className="wrapper">
-        <Navbar onClickSignOut={onClickSignOut} />
+        <Navbar />
         <div className="container mt-4">
           <div className="row">
             {/* Add Post card */}
